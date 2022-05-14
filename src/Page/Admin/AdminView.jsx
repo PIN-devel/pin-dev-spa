@@ -25,10 +25,14 @@ export default function AdminView() {
     <div>
       <Chip
         label={`총 데이터 수 : ${totalCnt}`}
-        color="secondary"
+        color="primary"
         sx={{ p: 1, m: 2 }}
       />
-      <AdminTable docs={docList} setTotalCnt={setTotalCnt} setDocList={setDocList} />
+      <AdminTable
+        docs={docList}
+        setTotalCnt={setTotalCnt}
+        setDocList={setDocList}
+      />
       {loading && <div>loading...</div>}
       {error}
     </div>

@@ -7,46 +7,74 @@ import {
   TableHead,
   TableRow,
   IconButton,
+  styled,
+  tableCellClasses,
 } from "@mui/material";
 import React from "react";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditIcon from "@mui/icons-material/Edit";
 import AdminDeleteBtn from "./AdminDeleteBtn";
 // import axios from "axios";
 // import API from "../../API.json";
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.primary.contrastText,
+    fontSize: "1.2rem",
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: "1.2rem",
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  "&:nth-of-type(odd)": {
+    backgroundColor: theme.palette.secondary.light,
+  },
+  "&:nth-of-type(even)": {
+    backgroundColor: theme.palette.secondary.main,
+  },
+  // hide last border
+  "&:last-child td, &:last-child th": {
+    border: 0,
+  },
+}));
 
 export default function AdminTable({ docs, setTotalCnt, setDocList }) {
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Table sx={{ minWidth: 650 }} aria-label="table">
         <TableHead>
           <TableRow>
-            <TableCell>ID</TableCell>
-            <TableCell align="right">제목</TableCell>
-            <TableCell align="right">갱신 시간</TableCell>
-            <TableCell align="right">생성 시간</TableCell>
-            <TableCell align="right"></TableCell>
+            <StyledTableCell>ID</StyledTableCell>
+            <StyledTableCell align="right">제목</StyledTableCell>
+            <StyledTableCell align="right">갱신 시간</StyledTableCell>
+            <StyledTableCell align="right">생성 시간</StyledTableCell>
+            <StyledTableCell align="right"></StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {docs.map((doc) => (
-            <TableRow
+            <StyledTableRow
               key={doc.boardId}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <TableCell component="th" scope="row">
+              <StyledTableCell component="th" scope="row">
                 {doc.boardId}
-              </TableCell>
-              <TableCell align="right">{doc.title}</TableCell>
-              <TableCell align="right">{doc.updatedAt}</TableCell>
-              <TableCell align="right">{doc.createdAt}</TableCell>
-              <TableCell align="right">
+              </StyledTableCell>
+              <StyledTableCell align="right">{doc.title}</StyledTableCell>
+              <StyledTableCell align="right">{doc.updatedAt}</StyledTableCell>
+              <StyledTableCell align="right">{doc.createdAt}</StyledTableCell>
+              <StyledTableCell align="right">
                 <IconButton color="success">
                   <EditIcon />
                 </IconButton>
-                <AdminDeleteBtn id={doc.boardId} setTotalCnt={setTotalCnt} setDocList={setDocList}/>
-              </TableCell>
-            </TableRow>
+                <AdminDeleteBtn
+                  id={doc.boardId}
+                  setTotalCnt={setTotalCnt}
+                  setDocList={setDocList}
+                />
+              </StyledTableCell>
+            </StyledTableRow>
           ))}
         </TableBody>
       </Table>
