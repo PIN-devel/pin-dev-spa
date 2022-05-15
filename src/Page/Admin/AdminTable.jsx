@@ -13,6 +13,8 @@ import {
 import React from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import AdminDeleteBtn from "./AdminDeleteBtn";
+import { useNavigate } from "react-router-dom";
+
 // import axios from "axios";
 // import API from "../../API.json";
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -28,11 +30,11 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
-    backgroundColor: theme.palette.secondary.light,
+    backgroundColor: theme.palette.action.hover,
   },
-  "&:nth-of-type(even)": {
-    backgroundColor: theme.palette.secondary.main,
-  },
+  // "&:nth-of-type(even)": {
+  //   backgroundColor: theme.palette.secondary.main,
+  // },
   // hide last border
   "&:last-child td, &:last-child th": {
     border: 0,
@@ -40,6 +42,10 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function AdminTable({ docs, setTotalCnt, setDocList }) {
+  const navigate = useNavigate();
+  const goEdit = (id) => {
+    navigate("/admin/upsert", { state: { id } });
+  };
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="table">
@@ -65,7 +71,7 @@ export default function AdminTable({ docs, setTotalCnt, setDocList }) {
               <StyledTableCell align="right">{doc.updatedAt}</StyledTableCell>
               <StyledTableCell align="right">{doc.createdAt}</StyledTableCell>
               <StyledTableCell align="right">
-                <IconButton color="success">
+                <IconButton color="success" onClick={() => goEdit(doc.boardId)}>
                   <EditIcon />
                 </IconButton>
                 <AdminDeleteBtn
