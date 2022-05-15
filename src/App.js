@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
 import BlogView from "./Page/Blog/BlogView";
 import { Box } from "@mui/system";
+import AdminUpsertView from "./Page/Admin/AdminUpsertView";
 
 const theme = createTheme({
   palette: {
@@ -64,7 +65,7 @@ function App() {
 
             <Button
               onClick={() => {
-                navigate("admin");
+                navigate("/admin");
               }}
               sx={{ my: 2, color: "inherit", display: "block" }}
             >
@@ -82,6 +83,7 @@ function App() {
         <Routes>
           <Route path="/" element={<BlogView />} />
           <Route path="admin" element={<AdminView />} />
+          <Route path="admin/upsert" element={<AdminUpsertView />} />
         </Routes>
       </Container>
     </ThemeProvider>

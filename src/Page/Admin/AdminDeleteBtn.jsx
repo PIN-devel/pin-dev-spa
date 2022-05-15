@@ -5,15 +5,12 @@ import useApi from "../../Hook/useApi";
 
 export default function AdminDeleteBtn({ id, setTotalCnt, setDocList }) {
   const [{ data, error, loading }, callDeleteApi] = useApi({
-    method: "delete",
-    url: `/${id}`,
+    config: JSON.stringify({ method: "delete", url: `/${id}` }),
   });
   const [
     { data: listData, error: listError, loading: listLoading },
     callGetListApi,
-  ] = useApi({
-    method: "get",
-  });
+  ] = useApi({ config: JSON.stringify({ method: "get" }) });
 
   const handleDelete = () => {
     if (window.confirm("정말 삭제하시겠습니까?")) {
